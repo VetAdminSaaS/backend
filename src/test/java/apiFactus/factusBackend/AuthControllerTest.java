@@ -29,14 +29,13 @@ public class AuthControllerTest {
 
     @Test
     void testLoginEndpoint() throws Exception {
-        // Arrange
+
         AuthResponse authResponse = new AuthResponse();
         authResponse.setNames("test@email.com");
         authResponse.setToken("mocked-jwt-token");
 
         when(usuarioService.login(any())).thenReturn(authResponse);
 
-        // Act & Assert
         mockMvc.perform(post("/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
