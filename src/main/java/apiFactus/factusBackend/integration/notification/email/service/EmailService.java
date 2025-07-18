@@ -1,5 +1,6 @@
 package apiFactus.factusBackend.integration.notification.email.service;
 
+import apiFactus.factusBackend.Dto.EmailAsesoriaRequest;
 import apiFactus.factusBackend.integration.notification.email.dto.Mail;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
@@ -71,4 +73,35 @@ public class EmailService {
 
 
     }
+    public void enviarCorreoAsesoria(EmailAsesoriaRequest request) {
+        Map<String, Object> model = new HashMap<>();
+        model.put("nombre", request.getNombre());
+        model.put("email", request.getEmail());
+        model.put("telefono", request.getTelefono());
+        model.put("empresa", request.getEmpresa());
+        model.put("cargo", request.getCargo());
+        model.put("mentor", request.getMentor());
+        model.put("especialidad", request.getNombreAsesoria());
+        model.put("categoria", request.getCategoria());
+        model.put("fecha", request.getFecha());
+        model.put("hora", request.getHora());
+        model.put("modalidad", request.getModalidad());
+        model.put("duracion", request.getDuracion());
+
+        Mail mail = createMail(
+                request.getEmail(),                      // destinatario
+                "Confirmación de Asesoría - Micro Aliados",       // asunto
+                model,
+                "no-reply@hub.com"                      // remitente
+        );
+
+        try {
+            sendEmail(mail, "email/asesoria-confirmacion-template");
+        } catch (MessagingException e) {
+            log.error("Error al enviar correo de asesoría", e);
+            throw new RuntimeException("No se pudo enviar el correo");
+        }
+    }
+
+
 }

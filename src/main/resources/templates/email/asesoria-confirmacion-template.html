@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirmación de Asesoría</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .confirmation-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        h3 {
+            color: #3498db;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .info-section {
+            background: #f8fafc;
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #eaeaea;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #555;
+            min-width: 120px;
+        }
+
+        .info-value {
+            color: #2c3e50;
+        }
+
+        .highlight-box {
+            background: #e3f2fd;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 25px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+<div class="confirmation-container">
+    <h2>Confirmación de Asesoría</h2>
+
+    <div class="highlight-box">
+        <p>¡Gracias por reservar tu asesoría! A continuación encontrarás los detalles de tu cita.</p>
+    </div>
+
+    <div class="info-section">
+        <h3>Tus datos</h3>
+        <div class="info-item">
+            <span class="info-label">Nombre:</span>
+            <span class="info-value" th:text="${nombre}"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Correo:</span>
+            <span class="info-value" th:text="${email}"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Teléfono:</span>
+            <span class="info-value" th:text="${telefono}"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Empresa:</span>
+            <span class="info-value" th:text="${empresa}"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Cargo:</span>
+            <span class="info-value" th:text="${cargo}"></span>
+        </div>
+    </div>
+
+    <div class="info-section">
+        <h3>Detalles de la Asesoría</h3>
+        <div class="info-item">
+            <span class="info-label">Mentor:</span>
+            <span class="info-value" th:text="${mentor}"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Especialidad:</span>
+            <span class="info-value" th:text="${especialidad}"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Categoría:</span>
+            <span class="info-value" th:text="${categoria}"></span>
+        </div>
+    </div>
+
+    <div class="info-section">
+        <h3>Información de la cita</h3>
+        <div class="info-item">
+            <span class="info-label">Fecha:</span>
+            <span class="info-value" th:text="${fecha}"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Hora:</span>
+            <span class="info-value" th:text="${hora}"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Modalidad:</span>
+            <span class="info-value" th:text="${modalidad}"></span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Duración:</span>
+            <span class="info-value" th:text="${duracion}"></span>
+        </div>
+    </div>
+
+    <div class="highlight-box">
+        <p><strong>Recordatorio:</strong> Recibirás un correo con el enlace de acceso (si es virtual) o la dirección exacta (si es presencial) 24 horas antes de tu cita.</p>
+    </div>
+
+    <div class="footer">
+        <p>Si necesitas modificar o cancelar tu cita, por favor contáctanos a <a href="mailto:soporte@empresa.com">soporte@empresa.com</a></p>
+    </div>
+</div>
+</body>
+</html>
