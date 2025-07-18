@@ -1,25 +1,31 @@
-# Etapa de construcción
+# Etapa de build
 FROM maven:3.9.4-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Copiar dependencias y código fuente
+# Copia solo los archivos necesarios para resolver dependencias
 COPY pom.xml .
+COPY private_key.pem .
+COPY public_key.pem .
+
+# Copia el código fuente
 COPY src ./src
+
+# Construye el proyecto sin ejecutar los tests
 RUN mvn clean package -DskipTests
 
 # Etapa de ejecución
 FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
 
-# Copiar el JAR compilado desde la etapa anterior
+# Copia el JAR generado desde la etapa de build
 COPY --from=build /app/target/*.jar app.jar
 
-# Copiar las claves necesarias para la app
-COPY private_key.pem ./private_key.pem
-COPY public_key.pem ./public_key.pem
+# Copia las claves al mismo directorio que el JAR
+COPY --from=build /app/private_key.pem .
+COPY --from=build /app/public_key.pem .
 
-# Exponer el puerto de la aplicación
+# Exponer el puerto
 EXPOSE 8080
 
-# Comando de inicio
+# Ejecutar el JAR
 ENTRYPOINT ["java", "-jar", "app.jar"]
